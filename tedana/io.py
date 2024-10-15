@@ -781,8 +781,8 @@ def load_data(data, n_echos=None):
 
         if len(data) == 1:  # a z-concatenated file was provided
             data = data[0]
-        elif len(data) == 2:  # inviable -- need more than 2 echos
-            raise ValueError(f"Cannot run `tedana` with only two echos: {data}")
+        # elif len(data) == 2:  # inviable -- need more than 2 echos
+        #     raise ValueError(f"Cannot run `tedana` with only two echos: {data}")
         else:  # individual echo files were provided (surface or volumetric)
             fdata = np.stack([utils.reshape_niimg(f) for f in data], axis=1)
             ref_img = check_niimg(data[0])

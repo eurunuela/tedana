@@ -139,7 +139,7 @@ def _get_parser():
         "--combmode",
         dest="combmode",
         action="store",
-        choices=["t2s"],
+        choices=["t2s", "paid"],
         help=("Combination scheme for TEs: t2s (Posse 1999)"),
         default="t2s",
     )
