@@ -139,7 +139,7 @@ def _get_parser():
         "--combmode",
         dest="combmode",
         action="store",
-        choices=["t2s"],
+        choices=["t2s", "paid"],
         help=("Combination scheme for TEs: t2s (Posse 1999)"),
         default="t2s",
     )
@@ -651,7 +651,7 @@ def tedana_workflow(
 
     # Create an adaptive mask with at least 3 good echoes, for classification
     masksum_clf = masksum_denoise.copy()
-    masksum_clf[masksum_clf < 3] = 0
+    masksum_clf[masksum_clf < 2] = 0
     mask_clf = masksum_clf.astype(bool)
     RepLGR.info(
         "A two-stage masking procedure was applied, in which a liberal mask "

@@ -11,6 +11,7 @@ import numpy as np
 
 matplotlib.use("AGG")
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 from nilearn import masking, plotting
 
 from tedana import io, stats, utils
@@ -757,7 +758,8 @@ def plot_adaptive_mask(
     all_masks = image.math_img("img * 0.5", img=all_masks)
 
     cmap = plt.cm.gist_rainbow
-    discrete_cmap = cmap.resampled(3)  # colors matching the mask lines in the image
+    colors = [cmap(i) for i in range(0, 256, 256 // 2)]
+    discrete_cmap = ListedColormap(colors)
     color_dict = {
         "Base": discrete_cmap(0),
         "Optimal combination": discrete_cmap(0.4),
@@ -790,7 +792,7 @@ def plot_adaptive_mask(
     ob.frame_axes.legend(
         handles=legend_elements,
         facecolor="white",
-        ncols=3,
+        # ncols=2,
         loc="lower center",
         fancybox=True,
         shadow=True,
