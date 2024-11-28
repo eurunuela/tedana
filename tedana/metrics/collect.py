@@ -112,7 +112,7 @@ def generate_metrics(
         )
 
     # Derive mask from thresholded adaptive mask
-    mask = adaptive_mask >= 3
+    mask = adaptive_mask >= 2
 
     # Apply masks before anything else
     data_cat = data_cat[mask, ...]
