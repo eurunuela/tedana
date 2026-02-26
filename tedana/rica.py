@@ -385,12 +385,27 @@ RICA_PATH_ENV_VAR = "TEDANA_RICA_PATH"
 RICA_FILE_PATTERNS = [
     "_metrics.tsv",
     "_mixing.tsv",
-    "stat-z_components.nii.gz",
+    "_desc-ICA_components.nii.gz",
     "_mask.nii",
     "report.txt",
     "comp_",
     ".svg",
     "tedana_",
+    "CrossComponent_metrics.json",
+    # QC NIfTI files
+    "T2starmap.nii",
+    "S0map.nii",
+    "rmse_statmap.nii",
+    # Orig convention files
+    "betas_OC.nii.gz",
+    "cross_component_metrics.json",
+    "t2svG.nii",
+    "s0vG.nii",
+    "rmse.nii",
+    # Decision tree files
+    "decision_tree.json",
+    "status_table.tsv",
+    "registry.json",
 ]
 
 # Ensure proper MIME types
@@ -610,7 +625,15 @@ class RicaHandler(http.server.SimpleHTTPRequestHandler):
                 dirs[:] = []
 
             for name in filenames:
-                if any(p in name for p in RICA_FILE_PATTERNS):
+                if any(p in name for p in RICA_FILE_PATTERNS) and not (
+                    "_components.nii.gz" in name and "stat-z" in name
+                ) and not (
+                    "_components.nii.gz" in name and "echo-" in name
+                ) and not (
+                    "_components.nii.gz" in name
+                    and "_desc-ICA_" not in name
+                    and "betas_OC" not in name
+                ):
                     f = root_path / name
                     files.append(f.relative_to(cwd).as_posix())
 
